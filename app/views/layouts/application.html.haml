@@ -10,5 +10,5 @@
   %body
     .container.wrapper
       - if user_signed_in?
-        %p= link_to('Logout', destroy_user_session_path )
+        .pull-right= link_to('Logout', destroy_user_session_path, class: 'btn btn-danger')
       = yield

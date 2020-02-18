@@ -10,6 +10,9 @@
   - if !current_user.fields_completed && @mode!="show"
     %p{style:'color:#ff0000'} You should fill the form.
   .row
+    -if form.object.profile_image.present?
+      .col-md-12
+        %img{src: form.object.profile_image, title: form.object.profile_image}
     .col-md-6
       .field
         = form.label :username
@@ -30,19 +33,19 @@
       %small Optional fields:
       .field
         = form.label :birth_date
-        = form.text_field :birth_date, class: 'form-control', readonly: @mode=="show"
+        = form.date_select :birth_date, {start_year: Date.current.year, end_year: 1920}, {class: 'form-control', disabled: @mode=="show"}
       .field
         = form.label :gender
-        = form.text_field :gender, class: 'form-control', readonly: @mode=="show"
+        = form.select :gender, ['male', 'female'], {}, {class: 'form-control', disabled: @mode=="show"}
       .field
         = form.label :phone_number
-        = form.text_field :phone_number, class: 'form-control', readonly: @mode=="show"
+        = form.number_field :phone_number, class: 'form-control', readonly: @mode=="show"
 
   .pull-right
     - if @user.fields_completed
       = link_to 'Back', users_path, class: 'btn btn-secondary'
     -if @mode == "show"
-      = link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary'
+      = link_to 'Edit', edit_user_path(@user), class: 'btn btn-success'
     - else
       = link_to 'Show', @user, class: 'btn btn-secondary'
       = form.submit class: 'btn btn-primary'

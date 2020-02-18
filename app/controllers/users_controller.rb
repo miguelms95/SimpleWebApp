@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    if current_user.fields_completed
+      @users = User.all
+    else
+      redirect_to edit_user_path(current_user)
+    end
   end
 
   # GET /users/1
