@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @mode = "show"
   end
 
   # GET /users/new
@@ -69,6 +70,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :forename, :surname, :email)
+      params.require(:user).permit(:username, :forename, :surname, :email, :profile_image, :birth_date, :gender, :phone_number)
     end
 end

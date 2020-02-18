@@ -1,0 +1,49 @@
+= form_with(model: user, local: true) do |form|
+  - if user.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(user.errors.count, "error")
+        prohibited this user from being saved:
+      %ul
+        - user.errors.full_messages.each do |message|
+          %li= message
+  - if !current_user.fields_completed && @mode!="show"
+    %p{style:'color:#ff0000'} You should fill the form.
+  .row
+    .col-md-6
+      .field
+        = form.label :username
+        = form.text_field :username, required: true, autofocus: true, class: 'form-control', readonly: @mode=="show"
+      .field
+        = form.label :forename
+        = form.text_field :forename, required: true, class: 'form-control', readonly: @mode=="show"
+      .field
+        = form.label :surname
+        = form.text_field :surname, required: true, class: 'form-control', readonly: @mode=="show"
+      .field
+        = form.label :email
+        = form.text_field :email, required: true, class: 'form-control', readonly: @mode=="show"
+      .field
+        = form.label :profile_image
+        = form.text_field :profile_image, required: true, class: 'form-control', readonly: @mode=="show"
+    .col-md-6
+      %small Optional fields:
+      .field
+        = form.label :birth_date
+        = form.text_field :birth_date, class: 'form-control', readonly: @mode=="show"
+      .field
+        = form.label :gender
+        = form.text_field :gender, class: 'form-control', readonly: @mode=="show"
+      .field
+        = form.label :phone_number
+        = form.text_field :phone_number, class: 'form-control', readonly: @mode=="show"
+
+  .pull-right
+    - if @user.fields_completed
+      = link_to 'Back', users_path, class: 'btn btn-secondary'
+    -if @mode == "show"
+      = link_to 'Edit', edit_user_path(@user), class: 'btn btn-secondary'
+    - else
+      = link_to 'Show', @user, class: 'btn btn-secondary'
+      = form.submit class: 'btn btn-primary'
+  .clear

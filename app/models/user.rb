@@ -3,4 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  validates_presence_of :username
+  validates_presence_of :forename
+  validates_presence_of :surname
+  validates_presence_of :email
+
+  def fields_completed
+    username.present? && forename.present? && surname.present? && email.present?
+  end
 end
