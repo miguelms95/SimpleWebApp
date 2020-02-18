@@ -10,4 +10,13 @@ class User < ApplicationRecord
   def fields_completed
     username.present? && forename.present? && surname.present? && email.present? && profile_image.present?
   end
+
+  def as_json options={}
+    {
+      forename: self.forename,
+      surname: self.surname,
+      gender: self.gender,
+      created_at: self.created_at
+    }
+  end
 end
