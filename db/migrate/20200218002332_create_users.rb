@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :username
       t.string :forename
       t.string :surname
-      t.string :email
+      # t.string :email # attr created with devise generator.
 
       t.timestamps
     end
